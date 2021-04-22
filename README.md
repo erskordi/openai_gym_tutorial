@@ -25,7 +25,7 @@ Use the `env_example.yml` file to create the new Anaconda environment. You can d
 
 For example: 
 
-Create a directory `/scratch/$USER/github-repos/`, if you don't have one already, clone the repo there, and `cd` to the repo directory. Also, you can create a directory where all your Anaconda environments will reside, e.g. `/scratch/$USER/conda-envs/`. Assuming you want to install the environment on your `scratch` directory, you can do the following:
+Create a directory `/scratch/$USER/github-repos/` if you don't have one already, clone the repo there, and `cd` to the repo directory. Also, you can create a directory where all your Anaconda environments will reside, e.g. `/scratch/$USER/conda-envs/`. Assuming you want to install the environment on your `scratch` directory, you can do the following:
 ```
 conda env create --prefix=/scratch/$USER/conda-envs/myenv -f env_example.yml
 ```
