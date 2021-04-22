@@ -8,7 +8,7 @@ If you have any questions, you can email us in the following addresses:
 * Kevin Sayers: Kevin.Sayers@nrel.gov
 * Erotokritos Skordilis: Erotokritos.Skordilis@nrel.gov
 
-## 1<sup>st<\sup> step:
+## 1<sup>st</sup> step:
 
 Login on Eagle with:
 ```
@@ -19,7 +19,7 @@ or
 ssh <username>@el1.hpc.nrel.gov
 ```
 
-## 2<sup>nd<\sup> step
+## 2<sup>nd</sup> step
 
 Use the `env_example.yml` file to create the new Anaconda environment. You can do it to a directory of your choosing. There are three main directories on Eagle where you can install the new environment, namely `/home`, `/scratch`, and `/projects`. Depending on your needs, you have to choose one of these three. For more information regarding installing your new environment and the different Eagle directories, please see [here:](https://nrel.github.io/HPC/languages/python/NREL_python.html), and [here:](https://nrel.github.io/HPC/languages/python/conda.html)
 
@@ -31,7 +31,7 @@ conda env create --prefix=/scratch/$USER/conda-envs/myenv -f env_example.yml
 ```
 After the successful creation of your environment, you will be ready to use it for your experiments.
 
-## 3<sup>rd<\sup> step
+## 3<sup>rd</sup> step
 
 Now that the environment is created, you can perform a sanity check to make sure everything is working correctly. In the case of OpenAI Gym, you can test your installation by running a small example using one of the standard Gym environments like `CartPole-v0`.
 
