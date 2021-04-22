@@ -1,1 +1,65 @@
 # Create Anaconda environment
+
+This repo is a tutorial for installing and using OpenAI Gym on Eagle, as well as running experiments on single/multiple cores and nodes.
+
+Below are the basic steps for creating a dedicated Anaconda environment that you will use for all your experiments. Note that this environment will contain only some basic packages, but you can always augment it by installing further packages using `conda install -c conda-forge <package_name>` or `pip install <package_name>`. See below for further details.
+
+If you have any questions, you can email us in the following addresses:
+* Kevin Sayers: Kevin.Sayers@nrel.gov
+* Erotokritos Skordilis: Erotokritos.Skordilis@nrel.gov
+
+## 1<sup>st<\sup> step:
+
+Login on Eagle with:
+```
+ssh eagle
+```
+or
+```
+ssh <username>@el1.hpc.nrel.gov
+```
+
+## 2<sup>nd<\sup> step
+
+Use the `env_example.yml` file to create the new Anaconda environment. You can do it to a directory of your choosing. There are three main directories on Eagle where you can install the new environment, namely `/home`, `/scratch`, and `/projects`. Depending on your needs, you have to choose one of these three. For more information regarding installing your new environment and the different Eagle directories, please see [here:](https://nrel.github.io/HPC/languages/python/NREL_python.html), and [here:](https://nrel.github.io/HPC/languages/python/conda.html)
+
+For example: 
+
+Create a directory `/scratch/$USER/github-repos/`, if you don't have one already, clone the repo there, and `cd` to the repo directory. Also, you can create a directory where all your Anaconda environments will reside, e.g. `/scratch/$USER/conda-envs/`. Assuming you want to install the environment on your `scratch` directory, you can do the following:
+```
+conda env create --prefix=/scratch/$USER/conda-envs/myenv -f env_example.yml
+```
+After the successful creation of your environment, you will be ready to use it for your experiments.
+
+## 3<sup>rd<\sup> step
+
+Now that the environment is created, you can perform a sanity check to make sure everything is working correctly. In the case of OpenAI Gym, you can test your installation by running a small example using one of the standard Gym environments like `CartPole-v0`.
+
+You begin by activating the enironment and start a Python session:
+```
+module purge
+conda activate /scratch/$USER/conda-envs/myenv
+python
+```
+Then, run the following:
+```python
+import gym
+
+env = gym.ens.make("CartPole-v0")
+env.reset()
+
+done = False
+
+while not done:
+    action = env.action_space.sample()
+    obs, rew, done, _ = env.step(action)
+    print(action, obs, rew, done)
+```
+### Install more packages
+
+Later, when you will start running reinforcement learning examples on Eagle, you will need to install other packages, most important of which the `Ray RLlib` library. This will enable you to run multiple instances of Gym in parallel over multiple cores per node, or even multiple nodes. You can always install new packages via:
+
+```
+conda install -c conda-forge <package_name>
+pip install <package_name>
+```
