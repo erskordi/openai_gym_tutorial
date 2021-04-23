@@ -8,7 +8,7 @@ If you have any questions, you can email us in the following addresses:
 * Kevin Sayers: Kevin.Sayers@nrel.gov
 * Erotokritos Skordilis: Erotokritos.Skordilis@nrel.gov
 
-## 1<sup>st</sup> step:
+## 1<sup>st</sup> step: Logging in on Eagle
 
 Login on Eagle with:
 ```
@@ -19,7 +19,7 @@ or
 ssh <username>@el1.hpc.nrel.gov
 ```
 
-## 2<sup>nd</sup> step
+## 2<sup>nd</sup> step: Set up Anaconda environment
 
 Use the `env_example.yml` file to create the new Anaconda environment. You can do it to a directory of your choosing. There are three main directories on Eagle where you can install the new environment, namely `/home`, `/scratch`, and `/projects`. Depending on your needs, you have to choose one of these three. For more information regarding installing your new environment and the different Eagle directories, please see [here](https://nrel.github.io/HPC/languages/python/NREL_python.html) and [here](https://nrel.github.io/HPC/languages/python/conda.html).
 
@@ -31,9 +31,9 @@ conda env create --prefix=/scratch/$USER/conda-envs/myenv -f env_example.yml
 ```
 After the successful creation of your environment, you will be ready to use it for your experiments.
 
-## 3<sup>rd</sup> step
+## 3<sup>rd</sup> step: Run OpenAI Gym on a single node/single core
 
-Now that the environment is created, you can perform a sanity check to make sure everything is working correctly. In the case of OpenAI Gym, you can test your installation by running a small example using one of the standard Gym environments like `CartPole-v0`.
+Now that the environment is created, you have to make sure everything is working correctly. In the case of OpenAI Gym, you can test your installation by running a small example using one of the standard Gym environments like `CartPole-v0`.
 
 You begin by activating the enironment and start a Python session:
 ```
@@ -72,8 +72,10 @@ If everything works correctly, you will see an output like this:
 1 [-0.17727204 -0.62267747  0.17868684  1.03854806] 1.0 False
 0 [-0.18972559 -0.81966549  0.1994578   1.38158021] 1.0 False
 0 [-0.2061189  -1.0166379   0.22708941  1.72943365] 1.0 True
-
 ```
+
+Note that the above process does not involve any training, but it works only as a sanity check. For actual reinforcement learning training, you have to follow the steps on the `simple-example` directory.
+
 ### Install more packages
 
 Later, when you will start running reinforcement learning examples on Eagle, you will need to install other packages, most important of which the `Ray RLlib` library. This will enable you to run multiple instances of Gym in parallel over multiple cores per node, or even multiple nodes. You can always install new packages via:
