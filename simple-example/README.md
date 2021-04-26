@@ -53,8 +53,8 @@ You have just initialized a Ray session!
 
 This is the final step in this basic trainer. Using Tune's `tune.run` function, you will initiate the agent training. This function takes three basic arguments:
 * RL algorithm (string): It is defined in the `--run` flag.
-* `stop` (dict): Provide a criterion to stop training (in this example is the number of training iterations, stop training when they exceed 10,000).
-* `config` (dict): Basic information for training, contains the OpenAI Gym environment name, number of CPUs/GPUs, and possible others.
+* `stop` (dictionary): Provide a criterion to stop training (in this example is the number of training iterations, stop training when they exceed 10,000).
+* `config` (dictionary): Basic information for training, contains the OpenAI Gym environment name, number of CPUs/GPUs, and possible others.
 ```python
 tune.run(
     args.run,
