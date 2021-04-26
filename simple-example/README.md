@@ -19,7 +19,7 @@ from ray import tune
 
 We also import the `argparse` package with which you can setup a number of flags. These flags will allow you to control certain hyperparameters, such as:
 * RL algorithm (e.g. PPO, DQN)
-* Number of CPUs/GPUs<sup>**</sup>
+* Number of CPUs/GPUs
 * ...and others
 ```python
 import argparse
@@ -38,3 +38,33 @@ All of them are self-explanatory, however let's see each one separately.
 2. `--num-gpus`: If you allocate a GPU node, then you can set this flag equal to 1. It also accepts partial values, in case you don't want 100% of the GPU utilized.
 3. `--name-env`: The name of the OpenAI Gym environment (later you will see how to register your own environment).
 4. `--run`: Specify the RL algorithm for agent training.
+
+There are also other flags that can be used in the trainer, but they will be explained in later examples.
+
+## Initialize Ray
+
+This is an easy step, you just have to do
+```python
+ray.init()
+```
+You have just initialized a Ray session!
+
+## Run experiments with Tune
+
+This is the final step in this basic trainer. Using Tune's `tune.run` function, you will initiate the agent training. This function takes three basic arguments:
+* RL algorithm (string): It is defined in the `--run` flag.
+* `stop` (dict): Provide a criterion to stop training (in this example is the number of training iterations, stop training when they exceed 10,000).
+* `config` (dict): Basic information for training, contains the OpenAI Gym environment name, number of CPUs/GPUs, and possible others.
+```python
+tune.run(
+    args.run,
+    name=args.name_env,
+    stop={"training_iteration": 10000},
+    config={
+        "env": args.name_env,
+        "num_workers": args.num_cpus, 
+        "num_gpus": args.num_gpus,
+        "ignore_worker_failures": True
+        }
+    )
+```
