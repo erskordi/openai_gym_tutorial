@@ -13,6 +13,8 @@ from ray import tune
 parser = argparse.ArgumentParser(description="Script for training RLLIB agents")
 parser.add_argument("--num-cpus", type=int, default=1)
 parser.add_argument("--num-gpus", type=int, default=0)
+parser.add_argument("--name-env", type=str, default="CartPole-v0")
+parser.add_argument("--RL-algorithm", type=str, default="DQN")
 parser.add_argument("--tune-log-level", type=str, default="INFO")
 parser.add_argument("--redis-password", type=str, default=None)
 parser.add_argument("--ip_head", type=str, default=None)
@@ -35,19 +37,13 @@ else:
 ## Run TUNE Experiments!
 ######################################
 tune.run(
-    "PPO",
-    name=env_name,
-    checkpoint_freq=3,
-    checkpoint_at_end=True,
-    checkpoint_score_attr="episode_reward_mean",
-    keep_checkpoints_num=50,
+    args.RL_algorithm,
+    name=args.name_env,
     stop={"training_iteration": 10000},
-    restore=args.restore,
     config={
-        "env": "CartPole-v0",
+        "env": args.name_env,
         "num_workers": args.num_cpus, 
         "num_gpus": args.num_gpus,
-        "log_level": args.tune_log_level,
         "ignore_worker_failures": True
         }
     )
