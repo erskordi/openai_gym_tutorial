@@ -4,7 +4,7 @@ Reinforcement learning algorithms are notorious for the amount of data they need
 
 RLlib is an open-source library for reinforcement learning that offers both high scalability and a unified API for a variety of applications ([source](https://docs.ray.io/en/master/rllib.html)). It supports all known deep learning frameworks such as Tensorflow, Pytorch, although most parts are framework-agnostic and can be used by either one.
 
-To demonstrate RLlib's capabilities, we provide here a simple example of training an RL agent for one of the standard OpenAI Gym environments, the CartPole. The example, which can be found in the `simple_model.py` file, utilizes the power of RLlib in running multiple experiments in parallel by exploiting as many CPUs and/or GPUs are available on your machine. Below, you will find a detailed description of how this example works.
+To demonstrate RLlib's capabilities, we provide here a simple example of training an RL agent for one of the standard OpenAI Gym environments, the CartPole. The example, which can be found in the `simple_trainer.py` file, utilizes the power of RLlib in running multiple experiments in parallel by exploiting as many CPUs and/or GPUs are available on your machine. Below, you will find a detailed description of how this example works.
 
 ## Import packages
 
