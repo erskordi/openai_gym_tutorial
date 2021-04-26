@@ -1,10 +1,6 @@
 import argparse
-import sys
 
 import ray
-from ray.tune.registry import register_env
-from ray.rllib.agents import ppo
-from ray.rllib.models import ModelCatalog
 from ray import tune
 
 ###############################################
@@ -14,7 +10,7 @@ parser = argparse.ArgumentParser(description="Script for training RLLIB agents")
 parser.add_argument("--num-cpus", type=int, default=1)
 parser.add_argument("--num-gpus", type=int, default=0)
 parser.add_argument("--name-env", type=str, default="CartPole-v0")
-parser.add_argument("--RL-algorithm", type=str, default="DQN")
+parser.add_argument("--run", type=str, default="DQN")
 parser.add_argument("--tune-log-level", type=str, default="INFO")
 parser.add_argument("--redis-password", type=str, default=None)
 parser.add_argument("--ip_head", type=str, default=None)
@@ -37,7 +33,7 @@ else:
 ## Run TUNE Experiments!
 ######################################
 tune.run(
-    args.RL_algorithm,
+    args.run,
     name=args.name_env,
     stop={"training_iteration": 10000},
     config={
