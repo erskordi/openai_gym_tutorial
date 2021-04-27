@@ -105,3 +105,4 @@ In order to exploit the Eagle node 100%, you need to adjust the `--num-cpus` hyp
 python simple_trainer.py --num-cpus 35
 ```
 
+You may wonder why set up the number of CPUs to 35 when there are 36 cores on an Eagle node. That happens because RLlib always sets a minimum of one core in `num_workers` key of the `config` dictionary, even if you don't. In the current setting of the aforementioned example (`--num-cpus`: 1), RLlib will actually utilize 2 cores. So, by setting the `--num-cpus` hyperparameter to 35, RLlib will actually allocate 36 cores, which means 100% utilization of the Eagle node. Such is not the case with the `num_gpus` key, where zero means no GPU allocation is permitted. This is because GPUs are used for training the policy network and not running the OpenAI Gym environment instances, and thus they are not mandatory (although having a GPU node can assist the agent training by reducing training time).
