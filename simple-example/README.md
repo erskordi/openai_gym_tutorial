@@ -1,4 +1,4 @@
-# Reinforcement Learning with Ray/RLlib on Eagle
+# Reinforcement Learning with Ray/RLlib
 
 Reinforcement learning algorithms are notorious for the amount of data they need to collect in order to perform adequate agent training. The more data collected, the better the training will be. However, we also need to collect massive amounts of data in reasonable time. That is where RLlib can assist us. 
 
@@ -34,7 +34,7 @@ parser.add_argument("--name-env", type=str, default="CartPole-v0")
 parser.add_argument("--run", type=str, default="DQN")
 ```
 All of them are self-explanatory, however let's see each one separately.
-1. `--num-cpus`: Define how many CPU cores you want to utilize. Each CPU node on Eagle has 36 cores. Maximum value: 35
+1. `--num-cpus`: Define how many CPU cores you want to utilize.
 2. `--num-gpus`: If you allocate a GPU node, then you can set this flag equal to 1. It also accepts partial values, in case you don't want 100% of the GPU utilized.
 3. `--name-env`: The name of the OpenAI Gym environment (later you will see how to register your own environment).
 4. `--run`: Specify the RL algorithm for agent training.
@@ -53,7 +53,7 @@ You have just initialized a Ray session!
 
 This is the final step in this basic trainer. Using Tune's `tune.run` function, you will initiate the agent training. This function takes three basic arguments:
 * RL algorithm (string): It is defined in the `--run` flag.
-* `stop` (dictionary): Provide a criterion to stop training (in this example is the number of training iterations, stop training when they exceed 10,000).
+* `stop` (dictionary): Provide a criterion to stop training (in this example is the number of training iterations, stop training when they reach 10,000).
 * `config` (dictionary): Basic information for training, contains the OpenAI Gym environment name, number of CPUs/GPUs, and possible others.
 ```python
 tune.run(
@@ -68,3 +68,40 @@ tune.run(
         }
     )
 ```
+
+# Run experiments on Eagle
+
+## Login on Eagle
+
+Begin by logging in on Eagle:
+```
+ssh <username>@el1.hpc.nrel.gov
+```
+
+## Activate Conda environment
+
+After logging in on Eagle, move to the repo directory:
+```
+cd /scratch/$USER/git-repos/openai_gym_tutorial/simple-example/
+```
+
+## Allocate an interactive Eagle node
+
+Now you can allocate an interactive node. For this example, let's start by allocating a `debug` node since it is faster. Debug nodes have a maximum allocation time of one hour (60 minutes):
+```
+srun -n1 -t60 -<project_name> --partition debug --pty $SHELL
+```
+and activate the environment you created:
+```
+module purge
+conda activate env_example
+```
+## Run multi-core experiments
+
+The example in the previous section, keeping the default values, is designed to run on a local machine with a single CPU nodes and no GPUs are utilized. It can also run on Eagle, after allocating a single node and you decide to run the experiments on a single CPU of this node. However, as explained above, RL training is highly benefited by running experiments, that is evaluations of OpenAI Gym environments. A single node on Eagle has 36 CPU cores, therefore it is prudent to utilize all of them for faster agent training. 
+
+In order to exploit the Eagle node 100%, you need to adjust the `--num-cpus` hyperparameter to reflect to all CPUs on the node. Therefore, you can run the following:
+```
+python simple_trainer.py --num-cpus 35
+```
+
